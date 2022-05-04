@@ -13,6 +13,8 @@ app.use(morgan('dev'));
 
 app.use('/', require('./src/routes/greet.route'))
 app.use('/api/v1', require('./src/routes/api.route'));
+app.use('/api/v1', require('./src/routes/upload.route'));
+
 
 app.use((req, res, next) => {
   next(createError.NotFound());
