@@ -2,6 +2,7 @@ const User = require("../Schema/user.schema");
 const bcrypt = require("bcrypt");
 var jwt = require('jsonwebtoken');
 const { validationResult } = require('express-validator');
+const { USER_ALREADY_EXIST, USER_CREATED, USER_NOT_FOUND, PASSWORD_DOES_NOT_MATCH, USER_LOGGED_IN } = require("../Constants/messages.constant");
 
 
 
@@ -26,13 +27,13 @@ const getAllUser = async (req, res) => {
         const userFinded = await User.findOne({email});
 
         if(userFinded){
-            return res.status(409).send({error: "User already exists"});
+            return res.status(409).send({error: USER_ALREADY_EXIST});
         }
         const salt = await bcrypt.genSalt(10);
         const password_hash = await bcrypt.hash(password, salt);
         const user = new User({email, password: password_hash});
         await user.save();
-        res.status(201).json({message: "User created"});
+        res.status(201).json({message: USER_CREATED});
 
     } catch (error) {
         console.log(error);
@@ -45,15 +46,15 @@ const login = async (req, res) => {
         const {email, password} = req.body;
         const user = await User.findOne({email});
         if(!user){
-            return res.status(401).send({error: "User not found"});
+            return res.status(401).send({error: USER_NOT_FOUND});
         }
         const isMatch = await bcrypt.compare(password, user.password);
         if(!isMatch){
-            return res.status(401).send({error: "Password does not match"});
+            return res.status(401).send({error: PASSWORD_DOES_NOT_MATCH});
         }
         var token = jwt.sign({user_id: user.id}, process.env.SECRET_KEY, { expiresIn: 60 * 60 });
 
-        res.status(200).json({message: "User logged in", token});
+        res.status(200).json({message: USER_LOGGED_IN, token});
     } catch (error) {
         console.log(error);
         res.status(500).send({error});
