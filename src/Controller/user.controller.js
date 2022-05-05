@@ -9,7 +9,7 @@ const { match, hash, generate_salt } = require("../Helper/bcryp.manager");
 const getAllUser = async (req, res) => {
     try {
         const pass = await PasswordHash.find().populate({path: 'user_id'})
-        console.log(pass)
+      
         res.status(200).json(pass);
     } catch (error) {
         console.log(error);
