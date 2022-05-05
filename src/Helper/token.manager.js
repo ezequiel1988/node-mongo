@@ -21,4 +21,6 @@ const verifyToken = async (req, res, next) => {
     }
 }
 
-module.exports = { verifyToken }
+const jwt_sign = (user) => jwt.sign({user_id: user.id}, process.env.SECRET_KEY, { expiresIn: 60 * 60 });
+
+module.exports = { verifyToken, jwt_sign }
