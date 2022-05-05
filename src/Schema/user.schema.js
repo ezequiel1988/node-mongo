@@ -4,6 +4,10 @@ const userSchema = new Schema({
     email: String,
     password: String,
     avatar: String,
+    pass_stored: {
+        type: Schema.Types.ObjectId,
+        ref: 'hash'
+    }
 })
 
 const User = model('user', userSchema);

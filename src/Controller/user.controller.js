@@ -8,8 +8,9 @@ const { match, hash, generate_salt } = require("../Helper/bcryp.manager");
 
 const getAllUser = async (req, res) => {
     try {
-        const users = await User.find();
-        res.status(200).json(users);
+        const pass = await PasswordHash.find().populate({path: 'user_id'})
+        console.log(pass)
+        res.status(200).json(pass);
     } catch (error) {
         console.log(error);
         res.status(500).send(error);
@@ -26,8 +27,8 @@ const getAllUser = async (req, res) => {
             return res.status(409).send({error: USER_ALREADY_EXIST});
         }
 
-        const salt = generate_salt();
-        const password_hash = hash(password, salt);
+        const salt = await generate_salt();
+        const password_hash = await hash(password, salt);
 
         const user = new User({email, password: password_hash});
 
