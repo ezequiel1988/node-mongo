@@ -1,4 +1,3 @@
-const { body } = require('express-validator');
 const { getAllUser, createUser, login } = require('../Controller/user.controller');
 const { verifyToken } = require('../Helper/token.manager');
 const { validator, validations } = require('../Middlewares/error.validation');

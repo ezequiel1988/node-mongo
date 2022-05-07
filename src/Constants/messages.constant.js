@@ -7,6 +7,7 @@ const USER_LOGGED_IN =' User logged in';
 const USER_UPDATED =' User updated';
 const USER_DELETED =' User deleted';
 const IMAGE_SAVED_SUCCESSFULLY =' Image saved successfully';
+const PRODUCT_CREATED =' Product created';
 
 
 module.exports = {
@@ -17,5 +18,6 @@ module.exports = {
     USER_LOGGED_IN,
     USER_UPDATED,
     USER_DELETED,
-    IMAGE_SAVED_SUCCESSFULLY
+    IMAGE_SAVED_SUCCESSFULLY,
+    PRODUCT_CREATED
 }
