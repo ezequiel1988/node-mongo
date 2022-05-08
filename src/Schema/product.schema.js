@@ -4,17 +4,19 @@ const ratingSchema = new Schema({
     rate: Number,
     count: Number
     
-}, { _id: false });
+});
 
 const productSchema = new Schema({
     title: String,
     price: Number,
     description: String,
-    category: String,
-    thumbnail: String,
-    rating: {
-        type: ratingSchema
+    category: {
+        type: Schema.Types.ObjectId,
+        ref: 'category'
     },
+    thumbnail: String,
+    rate: Number,
+    count: Number,
     user: {
         type: Schema.Types.ObjectId,
         ref: 'user'
@@ -22,5 +24,6 @@ const productSchema = new Schema({
 })
 
 const Product = model('product', productSchema);
+const Rating = model('rating', ratingSchema);
 
-module.exports = Product;
+module.exports = {Product, Rating};

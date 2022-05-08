@@ -15,6 +15,7 @@ app.use('/', require('./src/routes/greet.route'))
 app.use('/api/v1', require('./src/routes/api.route'));
 app.use('/api/v1', require('./src/routes/upload.route'));
 app.use('/api/v1', require('./src/routes/product.route'));
+app.use('/api/v1', require('./src/routes/categories.route'));
 
 
 app.use((req, res, next) => {
